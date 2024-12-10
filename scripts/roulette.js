@@ -1,3 +1,7 @@
+$('form').submit(function (e) {
+    e.preventDefault();
+});
+
 function SpinBarrel(player) {
     
 };
@@ -11,14 +15,18 @@ const player = {
     shots: 0
 };
 
-function CreatePlayer(name) {
-    this.name = name
-    this.shots = 1 + Math.floor(Math.random() * 6)
+let list_of_names = []
+
+$('#name-submit').click(function CreatePlayer(){
+    let player = {
+        name: $('#name').val(),
+        shots: 1 + Math.floor(Math.random() * 6)
+    }
+    list_of_names.push(player)
+})
+
+function ClearNames() {
+    list_of_names.length = 0;
 }
 
-$('#name-submit').click(CreatePlayer('skibidi'))
-
-list_of_names = [
-
-]
 
