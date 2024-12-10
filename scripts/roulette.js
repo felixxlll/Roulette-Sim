@@ -27,14 +27,14 @@ let list_of_players = []
 // The main purpose for this is to update the website whenever you add or remove players.
 let list_of_players_proxy = new Proxy(list_of_players, {
     set: function (target, property, value) {
-        onListChange(); // Triggers whenever the list changes
+        CreatePlayers(); // Triggers whenever the list changes
         target[property] = value; // Perform the default array operation
         return true; // Indicate success
     }
 });
 
 // This function should re-generate the players whenever a change is made
-function onListChange() {
+function CreatePlayers() {
     console.log("List updated")
 }
 
