@@ -20,7 +20,7 @@ function Shoot(player) {
 
 // IMPORTANT!
 // All changes made to this list should instead be made to list_of_players_proxy
-// This list is only managed by the proxy. Maybe this should be the other way around...(?)
+// This list is only managed by the proxy. Maybe this should've been other way around...(?)
 let list_of_players = []
 
 // Creates a proxy to check for changes in the list_of_players variable
