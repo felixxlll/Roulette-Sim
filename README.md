@@ -1,4 +1,4 @@
 # Roulette Sim
  
-Hobby project I'm working on so I could play Liar's bar offline with my buddies.
+Hobby project so I could play Liar's bar offline with my buddies.
 Felt safer than using an actual revolver :)
