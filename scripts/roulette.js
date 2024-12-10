@@ -47,7 +47,7 @@ function CreatePlayers() {
     $('#players').empty() // Clears players from page
 
     $(list_of_players_proxy).each(function(index) {
-        $('#players').append("<div playerName='"+ this.name + "' class='player'><p class='player-name'>"+ this.name + "</p><button class='shoot'>Skjut</button><button class='reload'>Ladda om</button></div>")
+        $('#players').append("<div playerName='"+ this.name + "' class='player'><p class='playername'>"+ this.name + "</p><button class='shoot'>Skjut</button><button class='reload'>Ladda om</button></div>")
     })
     console.log("List updated") // DEBUG
 }
