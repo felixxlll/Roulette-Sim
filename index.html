@@ -2,6 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
     <title>Russian Roulette</title>
 </head>
 <body>
@@ -12,6 +13,14 @@
             <input id="name" type="text">
             <button id="name-submit">Lägg till</button>
         </form>
+        <button id="name-clear">Återställ</button>
+    </div>
+    <div id="players">
+        <div class="player">
+            <p class="player-name">Namn</p>
+            <button class="shoot">Skjut</button>
+            <button class="reload">Ladda om</button>
+        </div>
     </div>
 
     <script src="scripts/jquery-3.7.1.min.js"></script>

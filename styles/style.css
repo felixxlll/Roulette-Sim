@@ -1,0 +1,9 @@
+#players {
+    border: solid 3px black;
+    padding: 3px;
+    margin: 5px 0px;
+}
+.player {
+    border: solid 2px red;
+    padding: 3px;
+}
