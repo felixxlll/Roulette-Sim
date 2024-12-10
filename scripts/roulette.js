@@ -36,6 +36,8 @@ let list_of_players_proxy = new Proxy(list_of_players, {
 // Removes all players by clearing the list
 $('#name-clear').click(function ClearNames(){
     list_of_players_proxy.length = 0;
+    
+    $('#players').empty() // Clears players from page
 })
 
 // This function should re-generate the players whenever a change is made
