@@ -33,9 +33,19 @@ let list_of_players_proxy = new Proxy(list_of_players, {
     }
 });
 
+// Removes all players by clearing the list
+$('#name-clear').click(function ClearNames(){
+    list_of_players_proxy.length = 0;
+})
+
 // This function should re-generate the players whenever a change is made
 function CreatePlayers() {
-    console.log("List updated")
+    $('#players').empty() // Clears players from page
+
+    $(list_of_players_proxy).each(function(index) {
+        $('#players').append("<div playerName='"+ this.name + "' class='player'><p class='player-name'>"+ this.name + "</p><button class='shoot'>Skjut</button><button class='reload'>Ladda om</button></div>")
+    })
+    console.log("List updated") // DEBUG
 }
 
 // Adds player whenever form is submitted, or rather whenever the button is clicked
@@ -47,10 +57,7 @@ $('#name-submit').click(function CreatePlayer(){
     list_of_players_proxy.push(player)
 })
 
-// Removes all players by clearing the list
-$('#name-clear').click(function ClearNames(){
-    list_of_players_proxy.length = 0;
-})
+
 
 
 
