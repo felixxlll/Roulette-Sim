@@ -16,7 +16,7 @@ function CreatePlayer(name) {
     this.shots = 1 + Math.floor(Math.random() * 6)
 }
 
-$('#')
+$('#name-submit').click(CreatePlayer('skibidi'))
 
 list_of_names = [
 
