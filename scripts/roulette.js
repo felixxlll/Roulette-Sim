@@ -18,11 +18,6 @@ function Shoot(player) {
     // if player.shots == 0, you're dead
 };
 
-const player = {
-    name: "John",
-    shots: 0
-};
-
 // IMPORTANT!
 // All changes made to this list should instead be made to list_of_players_proxy
 // This list is only managed by the proxy. Maybe this should be the other way around...(?)
