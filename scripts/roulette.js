@@ -83,8 +83,10 @@ function CreatePlayers() {
                 </div>
                 <p class="player-name">${key}</p>
                 <p class="player-shots">Skott skjutna: ${value.shots}.</p>
-                <button data-player="${key}" class="shoot">Skjut</button>
-                <button data-player="${key}" class="reload">Ladda om</button>
+                <div class="button-wrapper">
+                    <button data-player="${key}" class="shoot">Skjut</button>
+                    <button data-player="${key}" class="reload">Ladda om</button>
+                </div>
             </div>
         `);
     });
