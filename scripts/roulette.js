@@ -13,6 +13,7 @@ function Reload(playerName) {
 
     player.shots = 0
     player.bulletPosition = Math.floor(Math.random() * 6) + 1
+    CreatePlayers();
 };
 
 // Reloads all guns
