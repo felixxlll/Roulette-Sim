@@ -98,6 +98,7 @@ $('#name-submit').click(function () {
     if (playerName) {
         map_of_players_proxy.set(playerName, { shots: 0, bulletPosition: Math.floor(Math.random() * 6) + 1 });
     }
+    $('#name').val('')
 });
 
 // Clear all players
