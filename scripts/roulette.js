@@ -30,7 +30,7 @@ function Shoot(playerName) {
 
     if (player.shots === player.bulletPosition) {
         console.log(`${playerName} fired shot #${player.shots} and hit the bullet!`);
-        map_of_players_proxy.delete(playerName); // Remove player
+        // map_of_players_proxy.delete(playerName); // Remove player
     } else {
         console.log(`${playerName} fired shot #${player.shots} and survived.`);
     }
