@@ -2,6 +2,10 @@
     border: solid 3px black;
     padding: 3px;
     margin: 5px 0px;
+    
+    display: grid;
+    grid-template-columns: repeat(4, 20%); /* Four elements, each 20% wide */
+    justify-content: space-between; /* Evenly space elements and remaining whitespace */
 }
 .player {
     border: solid 2px red;
@@ -9,6 +13,8 @@
     margin: 5px 0px;
 }
 
+
+/* REVOLVER */
 /* Barrel container */
 #barrel-container {
     display: flex;
