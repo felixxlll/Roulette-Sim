@@ -3,20 +3,39 @@ $('form').submit(function (e) {
     e.preventDefault();
 });
 
-// Reloads a players gun
-function Reload(player) {
-    
-};
+// Reloads a player's gun
+function Reload() {};
 
 // Reloads all guns
-function ReloadAll() {
+function ReloadAll() {}
 
+// Shoot function
+function Shoot(playerName) {
+    const player = map_of_players_proxy.get(playerName);
+    if (!player) {
+        console.error(`Player "${playerName}" not found.`);
+        return;
+    }
+
+    player.shots += 1;
+
+    if (player.shots === player.bulletPosition) {
+        console.log(`${playerName} fired shot #${player.shots} and hit the bullet!`);
+        map_of_players_proxy.delete(playerName); // Remove player
+    } else {
+        console.log(`${playerName} fired shot #${player.shots} and survived.`);
+    }
+
+    // Update the map to trigger Proxy's onMapChange
+    map_of_players_proxy.set(playerName, player);
 }
 
-// 
-function Shoot(player) {
-    // if player.shots == 0, you're dead
-};
+// Event listener for shoot button
+$('#players').on('click', '.shoot[data-player]', function () {
+    const playerName = $(this).data('player');
+    console.log(`Shoot button clicked for ${playerName}`); // DEBUG
+    Shoot(playerName);
+});
 
 // IMPORTANT!
 // All changes made to this map should instead be made to map_of_players_proxy
@@ -46,34 +65,34 @@ const handler = {
 
 let map_of_players_proxy = new Proxy(map_of_players, handler);
 
-// Removes all players by clearing the map
-$('#name-clear').click(function ClearNames(){
-    map_of_players_proxy.clear();
-
-    $('#players').empty() // Clears players from page
-    $('#players').append("<p>Det finns inga spelare!</p>")
-
-})
-
-// This function should re-generate the players whenever a change is made
+// Create players UI
 function CreatePlayers() {
-    $('#players').empty() // Clears players from page
-
+    $('#players').empty();
     map_of_players_proxy.forEach((value, key) => {
-        $('#players').append("<div data-player='"+ key + "' class='player'><p class='player-name'>"+ key + "</p><p class='player-shots'>Skott skjutna: "+ value.shots + ".</p><button data-player='"+ key + "' class='shoot'>Skjut</button><button data-player='"+ key + "' class='reload'>Ladda om</button></div>")
-    })
-    console.log("Map updated") // DEBUG
+        $('#players').append(`
+            <div data-player="${key}" class="player">
+                <p class="player-name">${key}</p>
+                <p class="player-shots">Skott skjutna: ${value.shots}.</p>
+                <button data-player="${key}" class="shoot">Skjut</button>
+                <button data-player="${key}" class="reload">Ladda om</button>
+            </div>
+        `);
+    });
 }
 
+// Add player on button click
+$('#name-submit').click(function () {
+    const playerName = $('#name').val();
+    if (playerName) {
+        map_of_players_proxy.set(playerName, { shots: 0, bulletPosition: Math.floor(Math.random() * 6) + 1 });
+    }
+});
 
-
-// Adds player whenever form is submitted, or rather whenever the button is clicked
-$('#name-submit').click(function CreatePlayer(){
-
-    map_of_players_proxy.set($('#name').val(), {shots: 0, bulletPosition: 1 + Math.floor(Math.random() * 6)})
-})
-
-
+// Clear all players
+$('#name-clear').click(function () {
+    map_of_players_proxy.clear();
+    $('#players').empty().append("<p>Det finns inga spelare!</p>");
+});
 
 
 
