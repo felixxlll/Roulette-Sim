@@ -4,7 +4,16 @@ $('form').submit(function (e) {
 });
 
 // Reloads a player's gun
-function Reload() {};
+function Reload(playerName) {
+    const player = map_of_players_proxy.get(playerName);
+    if (!player) {
+        console.error(`Player "${playerName}" not found.`);
+        return;
+    }
+
+    player.shots = 0
+    player.bulletPosition = Math.floor(Math.random() * 6) + 1
+};
 
 // Reloads all guns
 function ReloadAll() {}
@@ -30,6 +39,12 @@ function Shoot(playerName) {
     map_of_players_proxy.set(playerName, player);
 }
 
+// Event listener for reload button
+$('#players').on('click', '.reload[data-player]', function () {
+    const playerName = $(this).data('player');
+    console.log(`${playerName} reloaded their gun.`); // DEBUG
+    Reload(playerName);
+});
 // Event listener for shoot button
 $('#players').on('click', '.shoot[data-player]', function () {
     const playerName = $(this).data('player');
