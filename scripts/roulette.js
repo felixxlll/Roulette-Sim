@@ -19,23 +19,36 @@ function Shoot(player) {
 };
 
 // IMPORTANT!
-// All changes made to this list should instead be made to list_of_players_proxy
-// This list is only managed by the proxy. Maybe this should've been other way around...(?)
-let list_of_players = []
+// All changes made to this map should instead be made to map_of_players_proxy
+// This map is only managed by the proxy.
+let map_of_players = new Map();
 
-// Creates a proxy to check for changes in the list_of_players variable
+// Creates a proxy to check for changes in the map_of_players variable
 // The main purpose for this is to update the website whenever you add or remove players.
-let list_of_players_proxy = new Proxy(list_of_players, {
-    set: function (target, property, value) {
-        CreatePlayers(); // Triggers whenever the list changes
-        target[property] = value; // Perform the default array operation
-        return true; // Indicate success
-    }
-});
+const handler = {
+    get(target, property) {
+        if (typeof target[property] === 'function') {
+            return (...args) => {
+                const result = target[property](...args);
 
-// Removes all players by clearing the list
+                // Trigger onMapChange for mutating methods
+                if (['set', 'delete', 'clear'].includes(property)) {
+                    CreatePlayers();
+                }
+
+                return result;
+            };
+        }
+
+        return target[property]; // Return property for non-function keys
+    }
+};
+
+let map_of_players_proxy = new Proxy(map_of_players, handler);
+
+// Removes all players by clearing the map
 $('#name-clear').click(function ClearNames(){
-    list_of_players_proxy.length = 0;
+    map_of_players_proxy.clear();
 
     $('#players').empty() // Clears players from page
     $('#players').append("<p>Det finns inga spelare!</p>")
@@ -46,19 +59,18 @@ $('#name-clear').click(function ClearNames(){
 function CreatePlayers() {
     $('#players').empty() // Clears players from page
 
-    $(list_of_players_proxy).each(function(index) {
-        $('#players').append("<div playername='"+ this.name + "' class='player'><p class='player-name'>"+ this.name + "</p><button class='shoot'>Skjut</button><button class='reload'>Ladda om</button></div>")
+    map_of_players_proxy.forEach((value, key) => {
+        $('#players').append("<div data-player='"+ key + "' class='player'><p class='player-name'>"+ key + "</p><p class='player-shots'>Skott skjutna: "+ value.shots + ".</p><button data-player='"+ key + "' class='shoot'>Skjut</button><button data-player='"+ key + "' class='reload'>Ladda om</button></div>")
     })
-    console.log("List updated") // DEBUG
+    console.log("Map updated") // DEBUG
 }
+
+
 
 // Adds player whenever form is submitted, or rather whenever the button is clicked
 $('#name-submit').click(function CreatePlayer(){
-    let player = {
-        name: $('#name').val(),
-        shots: 1 + Math.floor(Math.random() * 6)
-    }
-    list_of_players_proxy.push(player)
+
+    map_of_players_proxy.set($('#name').val(), {shots: 0, bulletPosition: 1 + Math.floor(Math.random() * 6)})
 })
 
 
