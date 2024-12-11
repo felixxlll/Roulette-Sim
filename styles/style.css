@@ -8,3 +8,66 @@
     padding: 3px;
     margin: 5px 0px;
 }
+
+/* Barrel container */
+#barrel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+}
+
+/* Barrel */
+.barrel {
+    position: relative;
+    width: 155px;
+    height: 155px;
+    border: 1px solid white;
+    border-radius: 50%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 0px;
+}
+
+/* Center Hole (Optional) */
+.barrel::before {
+    content: "";
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: white;
+    border: 5px solid white;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+/* Chambers */
+.chamber {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    border: 2px solid black;
+}
+
+/* Position chambers around the circle */
+.chamber:nth-child(1) { transform: rotate(30deg) translate(52px) rotate(0deg); }
+.chamber:nth-child(2) { transform: rotate(90deg) translate(52px) rotate(90deg); }
+.chamber:nth-child(3) { transform: rotate(150deg) translate(52px) rotate(150deg); }
+.chamber:nth-child(4) { transform: rotate(210deg) translate(52px) rotate(210deg); }
+.chamber:nth-child(5) { transform: rotate(270deg) translate(52px) rotate(270deg); }
+.chamber:nth-child(6) { transform: rotate(330deg) translate(52px) rotate(330deg); }
+
+/* Loaded Chamber */
+.chamber.loaded {
+    background: gray;
+}
+
+/* Fired Chamber */
+.chamber.fired {
+    background: red;
+}
