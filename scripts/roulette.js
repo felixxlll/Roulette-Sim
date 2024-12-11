@@ -71,6 +71,16 @@ function CreatePlayers() {
     map_of_players_proxy.forEach((value, key) => {
         $('#players').append(`
             <div data-player="${key}" class="player">
+                <div id="barrel-container">
+                    <div class="barrel">
+                        <div class="chamber"></div>
+                        <div class="chamber"></div>
+                        <div class="chamber"></div>
+                        <div class="chamber"></div>
+                        <div class="chamber"></div>
+                        <div class="chamber"></div>
+                    </div>
+                </div>
                 <p class="player-name">${key}</p>
                 <p class="player-shots">Skott skjutna: ${value.shots}.</p>
                 <button data-player="${key}" class="shoot">Skjut</button>
