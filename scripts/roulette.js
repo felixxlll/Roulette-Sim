@@ -16,7 +16,7 @@ function Reload(playerName) {
     CreatePlayers();
 };
 
-// Reloads all guns
+// Reloads all guns (someday)
 function ReloadAll() {}
 
 // Shoot function
