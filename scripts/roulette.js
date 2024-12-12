@@ -7,8 +7,12 @@ $('form').submit(function (e) {
 function UpdatePlayer(playerName) {
     const playerElement = $(`.player[data-player="${playerName.name}"]`);
     playerElement.find('.player-shots').text(`Skott skjutna: ${playerName.shots}.`);
+    const player = map_of_players_proxy.get(playerName)
 
-    if (playerElement.find('player-shots') => playerName.bulletPosition) // if this ==> disable button
+    if (player.shots >= player.bulletPosition) {
+        $(this).prop('disabled', true);
+        console.log("Button disabled")
+    }
 }
 
 // Reloads a player's gun
@@ -57,12 +61,20 @@ $('#players').on('click', '.reload[data-player]', function () {
     const playerName = $(this).data('player');
     console.log(`${playerName} reloaded their gun.`); // DEBUG
     Reload(playerName);
+    $(this).prop('disabled', false);
 });
 // Event listener for shoot button
 $('#players').on('click', '.shoot[data-player]', function () {
     const playerName = $(this).data('player');
+    const player = map_of_players_proxy.get(playerName)
     console.log(`Shoot button clicked for ${playerName}`); // DEBUG
     Shoot(playerName);
+    console.log(this)
+    console.log(player.bulletPosition)
+    if (player.shots >= player.bulletPosition) {
+        $(this).prop('disabled', true);
+        console.log("Button disabled")
+    }
 });
 
 // IMPORTANT!
@@ -110,6 +122,7 @@ function CreatePlayers() {
                     </div>
                 </div>
                 <p class="player-name">${key}</p>
+                <p class="player-state">Levande</p>
                 <p class="player-shots">Skott skjutna: ${value.shots}.</p>
                 <div class="button-wrapper">
                     <button data-player="${key}" class="shoot">Skjut</button>
