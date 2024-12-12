@@ -7,6 +7,8 @@ $('form').submit(function (e) {
 function UpdatePlayer(playerName) {
     const playerElement = $(`.player[data-player="${playerName.name}"]`);
     playerElement.find('.player-shots').text(`Skott skjutna: ${playerName.shots}.`);
+
+    if (playerElement.find('player-shots') => playerName.bulletPosition) // if this ==> disable button
 }
 
 // Reloads a player's gun
@@ -42,6 +44,10 @@ function Shoot(playerName) {
         console.log(`${playerName} fired shot #${player.shots} and survived.`);
     }
 
+    // IMPORTANT SO I DONT FORGET THIS
+    // This is a temporary solution, currently both this and the create players function is called
+    // The goal is for this only to be called, but atm that does not work.
+    UpdatePlayer(player);
     // Update the map to trigger Proxy's onMapChange
     map_of_players_proxy.set(playerName, player);
 }
