@@ -3,6 +3,12 @@ $('form').submit(function (e) {
     e.preventDefault();
 });
 
+// Updates individual players
+function UpdatePlayer(playerName) {
+    const playerElement = $(`.player[data-player="${playerName.name}"]`);
+    playerElement.find('.player-shots').text(`Skott skjutna: ${playerName.shots}.`);
+}
+
 // Reloads a player's gun
 function Reload(playerName) {
     const player = map_of_players_proxy.get(playerName);
@@ -13,7 +19,7 @@ function Reload(playerName) {
 
     player.shots = 0
     player.bulletPosition = Math.floor(Math.random() * 6) + 1
-    CreatePlayers();
+    UpdatePlayer(player);
 };
 
 // Reloads all guns (someday)
@@ -112,7 +118,7 @@ function CreatePlayers() {
 $('#name-submit').click(function () {
     const playerName = $('#name').val();
     if (playerName) {
-        map_of_players_proxy.set(playerName, { shots: 0, bulletPosition: Math.floor(Math.random() * 6) + 1 });
+        map_of_players_proxy.set(playerName, { name: playerName, shots: 0, bulletPosition: Math.floor(Math.random() * 6) + 1 });
     }
     $('#name').val('')
 });
