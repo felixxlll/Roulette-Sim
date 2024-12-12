@@ -118,7 +118,11 @@ function CreatePlayers() {
 $('#name-submit').click(function () {
     const playerName = $('#name').val();
     if (playerName) {
-        map_of_players_proxy.set(playerName, { name: playerName, shots: 0, bulletPosition: Math.floor(Math.random() * 6) + 1 });
+        map_of_players_proxy.set(playerName, {
+            name: playerName,
+            shots: 0,
+            bulletPosition: Math.floor(Math.random() * 6) + 1 
+        });
     }
     $('#name').val('')
 });
