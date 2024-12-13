@@ -61,6 +61,8 @@ $('#players').on('click', '.reload[data-player]', function () {
     console.log(`${playerName} reloaded their gun.`); // DEBUG
     Reload(playerName);
     $(this).siblings('.shoot').prop('disabled', false);
+    $(this).parent().siblings('.player-state').text('Levande');
+    console.log($(this.closest('player-state')))
     // $(this).prop('disabled', false);
 });
 // Event listener for shoot button
@@ -122,7 +124,7 @@ function CreatePlayers() {
                     </div>
                 </div>
                 <p class="player-name">${key}</p>
-                <p class="player-state">Levande</p>
+                <p class="player-state">${value.shots >= value.bulletPosition ? 'Död' : 'Levande'}</p>
                 <p class="player-shots">Skott skjutna: ${value.shots}.</p>
                 <div class="button-wrapper">
                     <button data-player="${key}" class="shoot" ${value.shots >= value.bulletPosition ? 'disabled' : ''}>Skjut</button>
