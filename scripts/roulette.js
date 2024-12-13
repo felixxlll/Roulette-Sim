@@ -60,6 +60,7 @@ $('#players').on('click', '.reload[data-player]', function () {
     const playerName = $(this).data('player');
     console.log(`${playerName} reloaded their gun.`); // DEBUG
     Reload(playerName);
+    $(this).siblings('.shoot').prop('disabled', false);
     // $(this).prop('disabled', false);
 });
 // Event listener for shoot button
