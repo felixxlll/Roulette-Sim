@@ -7,7 +7,9 @@ $('form').submit(function (e) {
 function UpdatePlayer(playerName) {
     const playerElement = $(`.player[data-player="${playerName.name}"]`);
     playerElement.find('.player-shots').text(`Skott skjutna: ${playerName.shots}.`);
-    const player = map_of_players_proxy.get(playerName)
+    const player = playerName
+    console.log(playerName)
+    console.log(player)
 
     if (player.shots >= player.bulletPosition) {
         $(this).prop('disabled', true);
@@ -125,7 +127,7 @@ function CreatePlayers() {
                 <p class="player-state">Levande</p>
                 <p class="player-shots">Skott skjutna: ${value.shots}.</p>
                 <div class="button-wrapper">
-                    <button data-player="${key}" class="shoot">Skjut</button>
+                    <button data-player="${key}" class="shoot" ${value.shots >= value.bulletPosition ? 'disabled' : ''}>Skjut</button>
                     <button data-player="${key}" class="reload">Ladda om</button>
                 </div>
             </div>
