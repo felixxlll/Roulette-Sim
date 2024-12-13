@@ -115,12 +115,12 @@ function CreatePlayers() {
             <div data-player="${key}" class="player">
                 <div id="barrel-container">
                     <div class="barrel">
-                        <div class="chamber"></div>
-                        <div class="chamber"></div>
-                        <div class="chamber"></div>
-                        <div class="chamber"></div>
-                        <div class="chamber"></div>
-                        <div class="chamber"></div>
+                        <div class="chamber ${value.shots >= 1 ? ' fired' : ''} ${value.shots == value.bulletPosition ? ' lethal' : ''}"></div>
+                        <div class="chamber ${value.shots >= 2 ? ' fired' : ''} ${value.shots == value.bulletPosition ? ' lethal' : ''}"></div>
+                        <div class="chamber ${value.shots >= 3 ? ' fired' : ''} ${value.shots == value.bulletPosition ? ' lethal' : ''}"></div>
+                        <div class="chamber ${value.shots >= 4 ? ' fired' : ''} ${value.shots == value.bulletPosition ? ' lethal' : ''}"></div>
+                        <div class="chamber ${value.shots >= 5 ? ' fired' : ''} ${value.shots == value.bulletPosition ? ' lethal' : ''}"></div>
+                        <div class="chamber ${value.shots >= 6 ? ' fired' : ''} ${value.shots == value.bulletPosition ? ' lethal' : ''}"></div>
                     </div>
                 </div>
                 <p class="player-name">${key}</p>
