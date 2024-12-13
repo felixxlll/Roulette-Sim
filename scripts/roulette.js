@@ -8,13 +8,10 @@ function UpdatePlayer(playerName) {
     const playerElement = $(`.player[data-player="${playerName.name}"]`);
     playerElement.find('.player-shots').text(`Skott skjutna: ${playerName.shots}.`);
     const player = playerName
-    console.log(playerName)
-    console.log(player)
 
-    if (player.shots >= player.bulletPosition) {
-        $(this).prop('disabled', true);
-        console.log("Button disabled")
-    }
+    // if (player.shots >= player.bulletPosition) {
+    //     $(this).prop('disabled', true);
+    // }
 }
 
 // Reloads a player's gun
@@ -63,7 +60,7 @@ $('#players').on('click', '.reload[data-player]', function () {
     const playerName = $(this).data('player');
     console.log(`${playerName} reloaded their gun.`); // DEBUG
     Reload(playerName);
-    $(this).prop('disabled', false);
+    // $(this).prop('disabled', false);
 });
 // Event listener for shoot button
 $('#players').on('click', '.shoot[data-player]', function () {
@@ -71,11 +68,9 @@ $('#players').on('click', '.shoot[data-player]', function () {
     const player = map_of_players_proxy.get(playerName)
     console.log(`Shoot button clicked for ${playerName}`); // DEBUG
     Shoot(playerName);
-    console.log(this)
-    console.log(player.bulletPosition)
     if (player.shots >= player.bulletPosition) {
         $(this).prop('disabled', true);
-        console.log("Button disabled")
+        console.log("Button disabled") // DEBUG
     }
 });
 
