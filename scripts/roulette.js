@@ -67,10 +67,12 @@ $('#players').on('click', '.shoot[data-player]', function () {
     const playerName = $(this).data('player');
     const player = map_of_players_proxy.get(playerName)
     console.log(`Shoot button clicked for ${playerName}`); // DEBUG
-    Shoot(playerName);
     if (player.shots >= player.bulletPosition) {
         $(this).prop('disabled', true);
         console.log("Button disabled") // DEBUG
+    }
+    else {
+        Shoot(playerName);
     }
 });
 
