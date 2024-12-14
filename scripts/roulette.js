@@ -144,8 +144,10 @@ $('#name-submit').click(function () {
             shots: 0,
             bulletPosition: Math.floor(Math.random() * 6) + 1 
         });
-        $('#players').find(('player')).each(function(element) {
-            if(!'#players'.contains(element)) {
+        $('#players').find(('.player')).each(function(element) {
+            console.log(element)
+            if($('#players').contains(element)) {
+                console.log(element)
                 element.remove()
             }
         });
