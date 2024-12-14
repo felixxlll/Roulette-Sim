@@ -94,7 +94,7 @@ const handler = {
 
                 // Trigger onMapChange for mutating methods
                 if (['set', 'delete', 'clear'].includes(property)) {
-                    CreatePlayers();
+                    // CreatePlayers();
                 }
 
                 return result;
@@ -107,33 +107,33 @@ const handler = {
 
 let map_of_players_proxy = new Proxy(map_of_players, handler);
 
-// Create players UI
-function CreatePlayers() {
-    $('#players').empty();
-    map_of_players_proxy.forEach((value, key) => {
-        $('#players').append(`
-            <div data-player="${key}" class="player">
-                <div id="barrel-container">
-                    <div class="barrel">
-                        <div class="chamber ${value.shots >= 1 ? ' fired' : ''} ${value.shots == value.bulletPosition ? ' lethal' : ''}"></div>
-                        <div class="chamber ${value.shots >= 2 ? ' fired' : ''} ${value.shots == value.bulletPosition ? ' lethal' : ''}"></div>
-                        <div class="chamber ${value.shots >= 3 ? ' fired' : ''} ${value.shots == value.bulletPosition ? ' lethal' : ''}"></div>
-                        <div class="chamber ${value.shots >= 4 ? ' fired' : ''} ${value.shots == value.bulletPosition ? ' lethal' : ''}"></div>
-                        <div class="chamber ${value.shots >= 5 ? ' fired' : ''} ${value.shots == value.bulletPosition ? ' lethal' : ''}"></div>
-                        <div class="chamber ${value.shots >= 6 ? ' fired' : ''} ${value.shots == value.bulletPosition ? ' lethal' : ''}"></div>
-                    </div>
-                </div>
-                <p class="player-name">${key}</p>
-                <p class="player-state">${value.shots >= value.bulletPosition ? 'Död' : 'Levande'}</p>
-                <p class="player-shots">Skott skjutna: ${value.shots}.</p>
-                <div class="button-wrapper">
-                    <button data-player="${key}" class="shoot" ${value.shots >= value.bulletPosition ? 'disabled' : ''}>Skjut</button>
-                    <button data-player="${key}" class="reload">Ladda om</button>
-                </div>
-            </div>
-        `);
-    });
-}
+// // Create players UI
+// function CreatePlayers() {
+//     $('#players').empty();
+//     map_of_players_proxy.forEach((player, key) => {
+//         $('#players').append(`
+//             <div data-player="${key}" class="player">
+//                 <div id="barrel-container">
+//                     <div class="barrel">
+//                         <div class="chamber ${player.shots >= 1 && player.bulletPosition > 1 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 1 ? ' lethal' : ''}"></div>
+//                         <div class="chamber ${player.shots >= 2 && player.bulletPosition > 2 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 2 ? ' lethal' : ''}"></div>
+//                         <div class="chamber ${player.shots >= 3 && player.bulletPosition > 3 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 3 ? ' lethal' : ''}"></div>
+//                         <div class="chamber ${player.shots >= 4 && player.bulletPosition > 4 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 4 ? ' lethal' : ''}"></div>
+//                         <div class="chamber ${player.shots >= 5 && player.bulletPosition > 5 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 5 ? ' lethal' : ''}"></div>
+//                         <div class="chamber ${player.shots >= 6 && player.bulletPosition > 6 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 6 ? ' lethal' : ''}"></div>
+//                     </div>
+//                 </div>
+//                 <p class="player-name">${key}</p>
+//                 <p class="player-state">${player.shots >= player.bulletPosition ? 'Död' : 'Levande'}</p>
+//                 <p class="player-shots">Skott skjutna: ${player.shots}.</p>
+//                 <div class="button-wrapper">
+//                     <button data-player="${key}" class="shoot" ${player.shots >= player.bulletPosition ? 'disabled' : ''}>Skjut</button>
+//                     <button data-player="${key}" class="reload">Ladda om</button>
+//                 </div>
+//             </div>
+//         `);
+//     });
+// }
 
 // Add player on button click
 $('#name-submit').click(function () {
@@ -144,6 +144,35 @@ $('#name-submit').click(function () {
             shots: 0,
             bulletPosition: Math.floor(Math.random() * 6) + 1 
         });
+        $('#players').find(('player')).each(function(element) {
+            if(!'#players'.contains(element)) {
+                element.remove()
+            }
+        });
+        console.log(map_of_players_proxy.get(playerName))
+        const player = map_of_players_proxy.get(playerName)
+        console.log(player.bulletPosition)
+        $('#players').append(`
+            <div data-player="${player.name}" class="player">
+                <div id="barrel-container">
+                    <div class="barrel">
+                        <div class="chamber ${player.shots >= 1 && player.bulletPosition > 1 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 1 ? ' lethal' : ''}"></div>
+                        <div class="chamber ${player.shots >= 2 && player.bulletPosition > 2 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 2 ? ' lethal' : ''}"></div>
+                        <div class="chamber ${player.shots >= 3 && player.bulletPosition > 3 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 3 ? ' lethal' : ''}"></div>
+                        <div class="chamber ${player.shots >= 4 && player.bulletPosition > 4 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 4 ? ' lethal' : ''}"></div>
+                        <div class="chamber ${player.shots >= 5 && player.bulletPosition > 5 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 5 ? ' lethal' : ''}"></div>
+                        <div class="chamber ${player.shots >= 6 && player.bulletPosition > 6 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 6 ? ' lethal' : ''}"></div>
+                    </div>
+                </div>
+                <p class="player-name">${player.name}</p>
+                <p class="player-state">${player.shots >= player.bulletPosition ? 'Död' : 'Levande'}</p>
+                <p class="player-shots">Skott skjutna: ${player.shots}.</p>
+                <div class="button-wrapper">
+                    <button data-player="${player.name}" class="shoot" ${player.shots >= player.bulletPosition ? 'disabled' : ''}>Skjut</button>
+                    <button data-player="${player.name}" class="reload">Ladda om</button>
+                </div>
+            </div>
+        `);
     }
     $('#name').val('')
 });

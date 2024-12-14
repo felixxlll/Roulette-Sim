@@ -89,11 +89,11 @@
 .chamber:nth-child(6) { transform: rotate(330deg) translate(52px) rotate(330deg); }
 
 /* Loaded Chamber */
-.chamber.loaded {
-    background: gray;
+.chamber.lethal {
+    background: red !important; 
 }
 
 /* Fired Chamber */
 .chamber.fired {
-    background: red;
+    background: white;
 }
