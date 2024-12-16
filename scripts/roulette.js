@@ -9,6 +9,7 @@ function UpdatePlayer(playerName) {
     playerElement.find('.player-shots').text(`Skott skjutna: ${playerName.shots}.`);
 }
 
+// Defines chamber angle
 let angle = 0
 
 // Reloads a player's gun
@@ -26,8 +27,8 @@ function Reload(playerName) {
         $(this).removeClass('lethal')
     })
 
-    angle = 0
-    $(barrel).css("transform", `rotate(${angle}deg)`)
+    player.angle = 0
+    $(barrel).css("transform", `rotate(${player.angle}deg)`)
     
     player.shots = 0
     player.bulletPosition = Math.floor(Math.random() * 6) + 1
@@ -57,8 +58,8 @@ function Shoot(playerName) {
         $(playerElement).find('.player-state').text('Död')
         console.log($(playerElement).find('.player-state'))
     } else {
-        angle += 60
-        $(barrel).css("transform", `rotate(${angle}deg)`)
+        player.angle += 60
+        $(barrel).css("transform", `rotate(${player.angle}deg)`)
         $(firedChamber).addClass('fired')
         console.log(`${playerName} fired shot #${player.shots} and survived.`);
     }
@@ -102,7 +103,8 @@ $('#name-submit').click(function () {
         map_of_players_proxy.set(playerName, {
             name: playerName,
             shots: 0,
-            bulletPosition: Math.floor(Math.random() * 6) + 1 
+            bulletPosition: Math.floor(Math.random() * 6) + 1,
+            angle: 0 // Barrel Angle
         });
         const player = map_of_players_proxy.get(playerName)
         $('#players').append(`
