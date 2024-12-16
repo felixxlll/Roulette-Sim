@@ -22,7 +22,7 @@ function Reload(playerName) {
         return;
     }
 
-    $(chambers).each(function(t){
+    $(chambers).each(function(){
         $(this).removeClass('fired')
         $(this).removeClass('lethal')
     })
