@@ -71,7 +71,6 @@ $('#players').on('click', '.reload[data-player]', function () {
     Reload(playerName);
     $(this).siblings('.shoot').prop('disabled', false);
     $(this).parent().siblings('.player-state').text('Levande'); // Changes text to say player is alive
-    // $(this).prop('disabled', false);
 });
 // Event listener for shoot button
 $('#players').on('click', '.shoot[data-player]', function () {
