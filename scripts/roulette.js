@@ -132,8 +132,3 @@ $('#name-clear').click(function () {
     map_of_players_proxy.clear();
     $('#players').empty().append("<p>Det finns inga spelare!</p>");
 });
-
-
-
-
-
