@@ -92,12 +92,12 @@
 .chamber:nth-child(4) { transform: rotate(270deg) translate(52px) rotate(270deg); }
 .chamber:nth-child(3) { transform: rotate(330deg) translate(52px) rotate(330deg); }
 
-/* Loaded Chamber */
+/* Fired chamber with the bullet */
 .chamber.lethal {
     background: red !important; 
 }
 
-/* Fired Chamber */
+/* Fired empty chamber */
 .chamber.fired {
     background: white;
 }
