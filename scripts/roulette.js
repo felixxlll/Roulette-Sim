@@ -107,12 +107,20 @@ $('#name-submit').click(function () {
             <div data-player="${player.name}" class="player">
                 <div id="barrel-container">
                     <div class="barrel"> 
-                        <div data-chamber="1" class="chamber ${player.shots >= 1 && player.bulletPosition > 1 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 1 ? ' lethal' : ''}"></div>
-                        <div data-chamber="2" class="chamber ${player.shots >= 2 && player.bulletPosition > 2 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 2 ? ' lethal' : ''}"></div>
-                        <div data-chamber="3" class="chamber ${player.shots >= 3 && player.bulletPosition > 3 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 3 ? ' lethal' : ''}"></div>
-                        <div data-chamber="4" class="chamber ${player.shots >= 4 && player.bulletPosition > 4 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 4 ? ' lethal' : ''}"></div>
-                        <div data-chamber="5" class="chamber ${player.shots >= 5 && player.bulletPosition > 5 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 5 ? ' lethal' : ''}"></div>
-                        <div data-chamber="6" class="chamber ${player.shots >= 6 && player.bulletPosition > 6 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 6 ? ' lethal' : ''}"></div>
+                        <div data-chamber="1" class="chamber"></div>
+                        <div data-chamber="2" class="chamber"></div>
+                        <div data-chamber="3" class="chamber"></div>
+                        <div data-chamber="4" class="chamber"></div>
+                        <div data-chamber="5" class="chamber"></div>
+                        <div data-chamber="6" class="chamber"></div>
+                        <div class="flute-container">
+                            <div class="flute"></div>
+                            <div class="flute"></div>
+                            <div class="flute"></div>
+                            <div class="flute"></div>
+                            <div class="flute"></div>
+                            <div class="flute"></div> 
+                        </div>
                     </div>
                 </div>
                 <p class="player-name">${player.name}</p>
