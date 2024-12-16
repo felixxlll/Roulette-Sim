@@ -7,7 +7,6 @@ $('form').submit(function (e) {
 function UpdatePlayer(playerName) {
     const playerElement = $(`.player[data-player="${playerName.name}"]`);
     playerElement.find('.player-shots').text(`Skott skjutna: ${playerName.shots}.`);
-    const player = playerName
 }
 
 let angle = 0
