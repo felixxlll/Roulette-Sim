@@ -3,7 +3,7 @@ $('form').submit(function (e) {
     e.preventDefault();
 });
 
-// Updates individual players
+// Updates player shots
 function UpdatePlayer(playerName) {
     const playerElement = $(`.player[data-player="${playerName.name}"]`);
     playerElement.find('.player-shots').text(`Skott skjutna: ${playerName.shots}.`);
@@ -50,6 +50,7 @@ function Shoot(playerName) {
     // IMPORTANT SO I DONT FORGET THIS
     // This is a temporary solution, currently both this and the create players function is called
     // The goal is for this only to be called, but atm that does not work.
+    // Update: I really need to go through these comments, stuffs getting messy
     UpdatePlayer(player);
     // Update the map to trigger Proxy's onMapChange
     map_of_players_proxy.set(playerName, player);
