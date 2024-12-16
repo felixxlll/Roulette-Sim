@@ -60,7 +60,7 @@
     /* rotate: 180deg; */
 }
 
-/* Center Hole (Optional) */
+/* Center Hole */
 .barrel::before {
     content: "";
     position: absolute;
