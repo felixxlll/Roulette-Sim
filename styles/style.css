@@ -32,6 +32,10 @@
     border: 0.5px solid black;
     border-top: 1.5px solid black !important;
 }
+.placeholder {
+    display: inline;
+    grid-column: 2 / 3;
+}
 
 /* REVOLVER */
 /* Barrel container */
@@ -90,6 +94,9 @@
     transition: background-color 0.2s ease;
 }
 
+.flute-container {
+    display: none;
+}
 /* .flute-container {
     position: absolute;
     width: 100%;
@@ -111,13 +118,13 @@
     box-sizing: border-box;
     z-index: 2;
 } */
-
+/* 
 .flute:nth-child(1) { transform: rotate(0deg) translate(90px)}
 .flute:nth-child(2) { transform: rotate(60deg) translate(90px)}
 .flute:nth-child(3) { transform: rotate(120deg) translate(90px)}
 .flute:nth-child(4) { transform: rotate(180deg) translate(90px)}
 .flute:nth-child(5) { transform: rotate(240deg) translate(90px)}
-.flute:nth-child(6) { transform: rotate(300deg) translate(90px)}
+.flute:nth-child(6) { transform: rotate(300deg) translate(90px)} */
 
 /* Position chambers around the circle */
 .chamber:nth-child(2) { transform: rotate(30deg) translate(52px) rotate(0deg); }
