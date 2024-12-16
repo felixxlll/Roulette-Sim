@@ -17,11 +17,17 @@ function UpdatePlayer(playerName) {
 // Reloads a player's gun
 function Reload(playerName) {
     const player = map_of_players_proxy.get(playerName);
+    const chambers = $(`.player[data-player="${player.name}"]`).find('.barrel').children()
     if (!player) {
         console.error(`Player "${playerName}" not found.`);
         return;
     }
 
+    $(chambers).each(function(t){
+        $(this).removeClass('fired')
+        $(this).removeClass('lethal')
+    })
+    
     player.shots = 0
     player.bulletPosition = Math.floor(Math.random() * 6) + 1
     UpdatePlayer(player);
@@ -33,19 +39,26 @@ function ReloadAll() {}
 // Shoot function
 function Shoot(playerName) {
     const player = map_of_players_proxy.get(playerName);
+    const playerElement = $(`.player[data-player="${player.name}"]`);
+
     if (!player) {
         console.error(`Player "${playerName}" not found.`);
         return;
     }
 
     player.shots += 1;
+    firedChamber = playerElement.find(`.chamber[data-chamber="${player.shots}"]`)
 
     if (player.shots === player.bulletPosition) {
+        $(firedChamber).addClass('lethal')
         console.log(`${playerName} fired shot #${player.shots} and hit the bullet!`);
         // map_of_players_proxy.delete(playerName); // Remove player
     } else {
+        $(firedChamber).addClass('fired')
         console.log(`${playerName} fired shot #${player.shots} and survived.`);
     }
+
+    
 
     // IMPORTANT SO I DONT FORGET THIS
     // This is a temporary solution, currently both this and the create players function is called
@@ -53,7 +66,7 @@ function Shoot(playerName) {
     // Update: I really need to go through these comments, stuffs getting messy
     UpdatePlayer(player);
     // Update the map to trigger Proxy's onMapChange
-    map_of_players_proxy.set(playerName, player);
+    // map_of_players_proxy.set(playerName, player);
 }
 
 // Event listener for reload button
@@ -63,7 +76,6 @@ $('#players').on('click', '.reload[data-player]', function () {
     Reload(playerName);
     $(this).siblings('.shoot').prop('disabled', false);
     $(this).parent().siblings('.player-state').text('Levande');
-    console.log($(this.closest('player-state')))
     // $(this).prop('disabled', false);
 });
 // Event listener for shoot button
@@ -74,7 +86,6 @@ $('#players').on('click', '.shoot[data-player]', function () {
     Shoot(playerName);
     if (player.shots >= player.bulletPosition) {
         $(this).prop('disabled', true);
-        console.log("Button disabled") // DEBUG
     }
 });
 
@@ -138,7 +149,11 @@ let map_of_players_proxy = map_of_players
 // Add player on button click
 $('#name-submit').click(function () {
     const playerName = $('#name').val();
-    if (playerName) {
+    if (map_of_players_proxy.has(playerName)) {
+        $('#name').val('')
+        return
+    }
+    else if (playerName) {
         map_of_players_proxy.set(playerName, {
             name: playerName,
             shots: 0,
@@ -158,12 +173,12 @@ $('#name-submit').click(function () {
             <div data-player="${player.name}" class="player">
                 <div id="barrel-container">
                     <div class="barrel"> 
-                        <div class="chamber ${player.shots >= 1 && player.bulletPosition > 1 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 1 ? ' lethal' : ''}"></div>
-                        <div class="chamber ${player.shots >= 2 && player.bulletPosition > 2 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 2 ? ' lethal' : ''}"></div>
-                        <div class="chamber ${player.shots >= 3 && player.bulletPosition > 3 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 3 ? ' lethal' : ''}"></div>
-                        <div class="chamber ${player.shots >= 4 && player.bulletPosition > 4 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 4 ? ' lethal' : ''}"></div>
-                        <div class="chamber ${player.shots >= 5 && player.bulletPosition > 5 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 5 ? ' lethal' : ''}"></div>
-                        <div class="chamber ${player.shots >= 6 && player.bulletPosition > 6 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 6 ? ' lethal' : ''}"></div>
+                        <div data-chamber="1" class="chamber ${player.shots >= 1 && player.bulletPosition > 1 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 1 ? ' lethal' : ''}"></div>
+                        <div data-chamber="2" class="chamber ${player.shots >= 2 && player.bulletPosition > 2 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 2 ? ' lethal' : ''}"></div>
+                        <div data-chamber="3" class="chamber ${player.shots >= 3 && player.bulletPosition > 3 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 3 ? ' lethal' : ''}"></div>
+                        <div data-chamber="4" class="chamber ${player.shots >= 4 && player.bulletPosition > 4 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 4 ? ' lethal' : ''}"></div>
+                        <div data-chamber="5" class="chamber ${player.shots >= 5 && player.bulletPosition > 5 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 5 ? ' lethal' : ''}"></div>
+                        <div data-chamber="6" class="chamber ${player.shots >= 6 && player.bulletPosition > 6 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 6 ? ' lethal' : ''}"></div>
                     </div>
                 </div>
                 <p class="player-name">${player.name}</p>
