@@ -10,10 +10,13 @@ function UpdatePlayer(playerName) {
     const player = playerName
 }
 
+let angle = 0
+
 // Reloads a player's gun
 function Reload(playerName) {
     const player = map_of_players_proxy.get(playerName);
-    const chambers = $(`.player[data-player="${player.name}"]`).find('.barrel').children()
+    const barrel = $(`.player[data-player="${player.name}"]`).find('.barrel')
+    const chambers = $(barrel).children()
     if (!player) {
         console.error(`Player "${playerName}" not found.`);
         return;
@@ -23,6 +26,9 @@ function Reload(playerName) {
         $(this).removeClass('fired')
         $(this).removeClass('lethal')
     })
+
+    angle = 0
+    $(barrel).css("transform", `rotate(${angle}deg)`)
     
     player.shots = 0
     player.bulletPosition = Math.floor(Math.random() * 6) + 1
@@ -36,6 +42,7 @@ function ReloadAll() {}
 function Shoot(playerName) {
     const player = map_of_players_proxy.get(playerName);
     const playerElement = $(`.player[data-player="${player.name}"]`);
+    const barrel = $(playerElement).find('.barrel')
 
     if (!player) {
         console.error(`Player "${playerName}" not found.`);
@@ -52,6 +59,8 @@ function Shoot(playerName) {
         console.log($(playerElement).find('.player-state'))
         // map_of_players_proxy.delete(playerName); // Remove player
     } else {
+        angle += 60
+        $(barrel).css("transform", `rotate(${angle}deg)`)
         $(firedChamber).addClass('fired')
         console.log(`${playerName} fired shot #${player.shots} and survived.`);
     }
