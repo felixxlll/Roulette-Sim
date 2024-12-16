@@ -144,20 +144,20 @@ $('#name-submit').click(function () {
             shots: 0,
             bulletPosition: Math.floor(Math.random() * 6) + 1 
         });
-        $('#players').find(('.player')).each(function(element) {
-            console.log(element)
-            if($('#players').contains(element)) {
-                console.log(element)
-                element.remove()
-            }
-        });
+        // $('#players').find(('.player')).each(function(element) {
+        //     console.log(element)
+        //     if($('#players').contains(element)) {
+        //         console.log(element)
+        //         element.remove()
+        //     }
+        // });
         console.log(map_of_players_proxy.get(playerName))
         const player = map_of_players_proxy.get(playerName)
         console.log(player.bulletPosition)
         $('#players').append(`
             <div data-player="${player.name}" class="player">
                 <div id="barrel-container">
-                    <div class="barrel">
+                    <div class="barrel"> 
                         <div class="chamber ${player.shots >= 1 && player.bulletPosition > 1 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 1 ? ' lethal' : ''}"></div>
                         <div class="chamber ${player.shots >= 2 && player.bulletPosition > 2 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 2 ? ' lethal' : ''}"></div>
                         <div class="chamber ${player.shots >= 3 && player.bulletPosition > 3 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 3 ? ' lethal' : ''}"></div>
