@@ -62,7 +62,6 @@ function Shoot(playerName) {
     }
 
     UpdatePlayer(player);
-}
 
 // Event listener for reload button
 $('#players').on('click', '.reload[data-player]', function () {
