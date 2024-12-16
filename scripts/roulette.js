@@ -70,12 +70,10 @@ $('#players').on('click', '.shoot[data-player]', function () {
     const playerName = $(this).data('player');
     const player = map_of_players_proxy.get(playerName)
     console.log(`Shoot button clicked for ${playerName}`); // DEBUG
+    Shoot(playerName);
     if (player.shots >= player.bulletPosition) {
         $(this).prop('disabled', true);
         console.log("Button disabled") // DEBUG
-    }
-    else {
-        Shoot(playerName);
     }
 });
 
@@ -83,29 +81,30 @@ $('#players').on('click', '.shoot[data-player]', function () {
 // All changes made to this map should instead be made to map_of_players_proxy
 // This map is only managed by the proxy.
 let map_of_players = new Map();
+let map_of_players_proxy = map_of_players
 
 // Creates a proxy to check for changes in the map_of_players variable
 // The main purpose for this is to update the website whenever you add or remove players.
-const handler = {
-    get(target, property) {
-        if (typeof target[property] === 'function') {
-            return (...args) => {
-                const result = target[property](...args);
+// const handler = {
+//     get(target, property) {
+//         if (typeof target[property] === 'function') {
+//             return (...args) => {
+//                 const result = target[property](...args);
 
-                // Trigger onMapChange for mutating methods
-                if (['set', 'delete', 'clear'].includes(property)) {
-                    // CreatePlayers();
-                }
+//                 // Trigger onMapChange for mutating methods
+//                 if (['set', 'delete', 'clear'].includes(property)) {
+//                     // CreatePlayers();
+//                 }
 
-                return result;
-            };
-        }
+//                 return result;
+//             };
+//         }
 
-        return target[property]; // Return property for non-function keys
-    }
-};
+//         return target[property]; // Return property for non-function keys
+//     }
+// };
 
-let map_of_players_proxy = new Proxy(map_of_players, handler);
+// let map_of_players_proxy = new Proxy(map_of_players, handler);
 
 // // Create players UI
 // function CreatePlayers() {
