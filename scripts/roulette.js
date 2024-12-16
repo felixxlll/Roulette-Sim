@@ -9,9 +9,6 @@ function UpdatePlayer(playerName) {
     playerElement.find('.player-shots').text(`Skott skjutna: ${playerName.shots}.`);
 }
 
-// Defines chamber angle
-let angle = 0
-
 // Reloads a player's gun
 function Reload(playerName) {
     const player = map_of_players_proxy.get(playerName);
