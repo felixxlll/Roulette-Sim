@@ -57,7 +57,6 @@ function Shoot(playerName) {
         console.log(`${playerName} fired shot #${player.shots} and hit the bullet!`);
         $(playerElement).find('.player-state').text('Död')
         console.log($(playerElement).find('.player-state'))
-        // map_of_players_proxy.delete(playerName); // Remove player
     } else {
         angle += 60
         $(barrel).css("transform", `rotate(${angle}deg)`)
@@ -65,13 +64,7 @@ function Shoot(playerName) {
         console.log(`${playerName} fired shot #${player.shots} and survived.`);
     }
 
-    // IMPORTANT SO I DONT FORGET THIS
-    // This is a temporary solution, currently both this and the create players function is called
-    // The goal is for this only to be called, but atm that does not work.
-    // Update: I really need to go through these comments, stuffs getting messy
     UpdatePlayer(player);
-    // Update the map to trigger Proxy's onMapChange
-    // map_of_players_proxy.set(playerName, player);
 }
 
 // Event listener for reload button
@@ -94,62 +87,10 @@ $('#players').on('click', '.shoot[data-player]', function () {
     }
 });
 
-// IMPORTANT!
-// All changes made to this map should instead be made to map_of_players_proxy
-// This map is only managed by the proxy.
+// Ignore this, remnants of an old proxy solution
+// I'm simply too lazy to fix this atm
 let map_of_players = new Map();
 let map_of_players_proxy = map_of_players
-
-// Creates a proxy to check for changes in the map_of_players variable
-// The main purpose for this is to update the website whenever you add or remove players.
-// const handler = {
-//     get(target, property) {
-//         if (typeof target[property] === 'function') {
-//             return (...args) => {
-//                 const result = target[property](...args);
-
-//                 // Trigger onMapChange for mutating methods
-//                 if (['set', 'delete', 'clear'].includes(property)) {
-//                     // CreatePlayers();
-//                 }
-
-//                 return result;
-//             };
-//         }
-
-//         return target[property]; // Return property for non-function keys
-//     }
-// };
-
-// let map_of_players_proxy = new Proxy(map_of_players, handler);
-
-// // Create players UI
-// function CreatePlayers() {
-//     $('#players').empty();
-//     map_of_players_proxy.forEach((player, key) => {
-//         $('#players').append(`
-//             <div data-player="${key}" class="player">
-//                 <div id="barrel-container">
-//                     <div class="barrel">
-//                         <div class="chamber ${player.shots >= 1 && player.bulletPosition > 1 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 1 ? ' lethal' : ''}"></div>
-//                         <div class="chamber ${player.shots >= 2 && player.bulletPosition > 2 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 2 ? ' lethal' : ''}"></div>
-//                         <div class="chamber ${player.shots >= 3 && player.bulletPosition > 3 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 3 ? ' lethal' : ''}"></div>
-//                         <div class="chamber ${player.shots >= 4 && player.bulletPosition > 4 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 4 ? ' lethal' : ''}"></div>
-//                         <div class="chamber ${player.shots >= 5 && player.bulletPosition > 5 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 5 ? ' lethal' : ''}"></div>
-//                         <div class="chamber ${player.shots >= 6 && player.bulletPosition > 6 ? ' fired' : ''} ${player.shots == player.bulletPosition && player.bulletPosition == 6 ? ' lethal' : ''}"></div>
-//                     </div>
-//                 </div>
-//                 <p class="player-name">${key}</p>
-//                 <p class="player-state">${player.shots >= player.bulletPosition ? 'Död' : 'Levande'}</p>
-//                 <p class="player-shots">Skott skjutna: ${player.shots}.</p>
-//                 <div class="button-wrapper">
-//                     <button data-player="${key}" class="shoot" ${player.shots >= player.bulletPosition ? 'disabled' : ''}>Skjut</button>
-//                     <button data-player="${key}" class="reload">Ladda om</button>
-//                 </div>
-//             </div>
-//         `);
-//     });
-// }
 
 // Add player on button click
 $('#name-submit').click(function () {
@@ -164,16 +105,7 @@ $('#name-submit').click(function () {
             shots: 0,
             bulletPosition: Math.floor(Math.random() * 6) + 1 
         });
-        // $('#players').find(('.player')).each(function(element) {
-        //     console.log(element)
-        //     if($('#players').contains(element)) {
-        //         console.log(element)
-        //         element.remove()
-        //     }
-        // });
-        console.log(map_of_players_proxy.get(playerName))
         const player = map_of_players_proxy.get(playerName)
-        console.log(player.bulletPosition)
         $('#players').append(`
             <div data-player="${player.name}" class="player">
                 <div id="barrel-container">
