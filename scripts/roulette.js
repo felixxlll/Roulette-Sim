@@ -48,13 +48,13 @@ function Shoot(playerName) {
     if (player.shots === player.bulletPosition) {
         $(firedChamber).addClass('lethal')
         console.log(`${playerName} fired shot #${player.shots} and hit the bullet!`);
+        $(playerElement).find('.player-state').text('Död')
+        console.log($(playerElement).find('.player-state'))
         // map_of_players_proxy.delete(playerName); // Remove player
     } else {
         $(firedChamber).addClass('fired')
         console.log(`${playerName} fired shot #${player.shots} and survived.`);
     }
-
-    
 
     // IMPORTANT SO I DONT FORGET THIS
     // This is a temporary solution, currently both this and the create players function is called
@@ -71,7 +71,7 @@ $('#players').on('click', '.reload[data-player]', function () {
     console.log(`${playerName} reloaded their gun.`); // DEBUG
     Reload(playerName);
     $(this).siblings('.shoot').prop('disabled', false);
-    $(this).parent().siblings('.player-state').text('Levande');
+    $(this).parent().siblings('.player-state').text('Levande'); // Changes text to say player is alive
     // $(this).prop('disabled', false);
 });
 // Event listener for shoot button
