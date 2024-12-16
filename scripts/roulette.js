@@ -8,10 +8,6 @@ function UpdatePlayer(playerName) {
     const playerElement = $(`.player[data-player="${playerName.name}"]`);
     playerElement.find('.player-shots').text(`Skott skjutna: ${playerName.shots}.`);
     const player = playerName
-
-    // if (player.shots >= player.bulletPosition) {
-    //     $(this).prop('disabled', true);
-    // }
 }
 
 // Reloads a player's gun
