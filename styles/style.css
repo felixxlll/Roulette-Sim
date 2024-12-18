@@ -40,14 +40,11 @@
 /* REVOLVER */
 /* Barrel container */
 #barrel-container {
-    width: 155px;
-    height: 155px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 20px auto;
-    background: white;
-    border-radius: 50%;
+    /* background: red; */
 }
 
 /* Barrel */
@@ -62,11 +59,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
     padding: 0px;
-    z-index: 1;
+    z-index: 0;
 
     transition: transform 0.5s ease;
+
+    /* Overflow and clip-path causes a thin outline around the barrel, were the flute indents are, caused by the black background, which is why mask-image is used instead. */
+    /* overflow: hidden; */
+    /* clip-path: circle(50%); */
+    -webkit-mask-image: radial-gradient(circle, black 100%, transparent 100%);
+    mask-image: radial-gradient(circle, black 100%, transparent 100%);
+    mask-composite: exclude;
 }
 
 /* Center Hole */
@@ -78,7 +81,6 @@
     background: white;
     border: 5px solid white;
     border-radius: 50%;
-    z-index: 2;
 }
 
 /* Chambers */
@@ -94,10 +96,8 @@
     transition: background-color 0.2s ease;
 }
 
+/* The flutes are the edge indents that happen after every bullet chamber */
 .flute-container {
-    display: none;
-}
-/* .flute-container {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -114,25 +114,23 @@
     height: 40px;
     background-color: white;
     border-radius: 50%;
-    border: 3px solid white;
-    box-sizing: border-box;
-    z-index: 2;
-} */
-/* 
-.flute:nth-child(1) { transform: rotate(0deg) translate(90px)}
-.flute:nth-child(2) { transform: rotate(60deg) translate(90px)}
-.flute:nth-child(3) { transform: rotate(120deg) translate(90px)}
-.flute:nth-child(4) { transform: rotate(180deg) translate(90px)}
-.flute:nth-child(5) { transform: rotate(240deg) translate(90px)}
-.flute:nth-child(6) { transform: rotate(300deg) translate(90px)} */
+}
 
-/* Position chambers around the circle */
-.chamber:nth-child(2) { transform: rotate(30deg) translate(52px) rotate(0deg); }
-.chamber:nth-child(1) { transform: rotate(90deg) translate(52px) rotate(90deg); }
-.chamber:nth-child(6) { transform: rotate(150deg) translate(52px) rotate(150deg); }
-.chamber:nth-child(5) { transform: rotate(210deg) translate(52px) rotate(210deg); }
-.chamber:nth-child(4) { transform: rotate(270deg) translate(52px) rotate(270deg); }
-.chamber:nth-child(3) { transform: rotate(330deg) translate(52px) rotate(330deg); }
+/* Positions flutes between every chamber */
+.flute:nth-child(1) { transform: rotate(0deg) translate(83px)}
+.flute:nth-child(2) { transform: rotate(60deg) translate(83px)}
+.flute:nth-child(3) { transform: rotate(120deg) translate(83px)}
+.flute:nth-child(4) { transform: rotate(180deg) translate(83px)}
+.flute:nth-child(5) { transform: rotate(240deg) translate(83px)}
+.flute:nth-child(6) { transform: rotate(300deg) translate(83px)}
+
+/* Positions chambers around the circle */
+.chamber:nth-child(2) { transform: rotate(30deg) translate(48px) rotate(0deg); }
+.chamber:nth-child(1) { transform: rotate(90deg) translate(48px) rotate(90deg); }
+.chamber:nth-child(6) { transform: rotate(150deg) translate(48px) rotate(150deg); }
+.chamber:nth-child(5) { transform: rotate(210deg) translate(48px) rotate(210deg); }
+.chamber:nth-child(4) { transform: rotate(270deg) translate(48px) rotate(270deg); }
+.chamber:nth-child(3) { transform: rotate(330deg) translate(48px) rotate(330deg); }
 
 /* Fired chamber with the bullet */
 .chamber.lethal {
